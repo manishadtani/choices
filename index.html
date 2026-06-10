@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Something For You 💕</title>
+  <meta name="description" content="A special quiz made with love, just for you">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════ Background Layers ═══════════ -->
+  <div id="starfield" aria-hidden="true"></div>
+  <div id="particles" aria-hidden="true"></div>
+  <div id="cursorTrail" aria-hidden="true"></div>
+
+  <!-- ═══════════ LOADING SCREEN ═══════════ -->
+  <section id="loader" class="screen active">
+    <div class="loader-heart">
+      <svg viewBox="0 0 100 100" class="heart-svg">
+        <path class="heart-path" d="M50 88 C25 65, 0 45, 0 28 C0 10, 15 0, 28 0 C38 0, 46 6, 50 14 C54 6, 62 0, 72 0 C85 0, 100 10, 100 28 C100 45, 75 65, 50 88Z" />
+      </svg>
+    </div>
+    <p class="loader-text">loading something special...</p>
+  </section>
+
+  <!-- ═══════════ INTRO CINEMATIC ═══════════ -->
+  <section id="intro" class="screen">
+    <button class="skip-btn" id="skipBtn" onclick="skipIntro()">skip →</button>
+
+    <div class="intro-slide" data-slide="0">
+      <span class="intro-emoji bounce-in">💕</span>
+      <h1 class="glow-text mega-title" id="introTitle0"></h1>
+    </div>
+
+    <div class="intro-slide" data-slide="1">
+      <h1 class="typewriter-host" id="introTitle1"></h1>
+    </div>
+
+    <div class="intro-slide" data-slide="2">
+      <span class="intro-emoji">✨</span>
+      <h1 class="typewriter-host" id="introTitle2"></h1>
+      <p class="intro-sub fade-up-delay cursive" id="introSub2"></p>
+    </div>
+
+    <div class="intro-slide" data-slide="3">
+      <span class="intro-emoji">👩‍🏫</span>
+      <h1 class="typewriter-host" id="introTitle3"></h1>
+      <p class="intro-sub fade-up-delay" id="introSub3"></p>
+    </div>
+
+    <div class="intro-slide" data-slide="4">
+      <span class="intro-emoji shake-emoji">😬</span>
+      <h1 class="typewriter-host" id="introTitle4"></h1>
+    </div>
+
+    <div class="intro-slide" data-slide="5">
+      <span class="intro-emoji">🤦‍♂️</span>
+      <h1 class="glow-text" id="introTitle5"></h1>
+      <p class="intro-sub fade-up-delay" id="introSub5"></p>
+    </div>
+
+    <div class="intro-slide" data-slide="6">
+      <span class="intro-emoji shimmer-emoji">🌙</span>
+      <h1 class="typewriter-host" id="introTitle6"></h1>
+    </div>
+
+    <div class="intro-slide" data-slide="7">
+      <span class="intro-emoji">✨</span>
+      <h1 id="introTitle7"></h1>
+      <p class="intro-sub cursive fade-up-delay" id="introSub7"></p>
+      <button id="btnStart" class="btn-glow btn-start-enter" onclick="startQuiz()">
+        <span>I'm Ready</span>
+        <span class="btn-heart">❤️</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════ QUIZ SECTION ═══════════ -->
+  <section id="quiz" class="screen">
+
+    <!-- Progress Bar -->
+    <div class="progress-wrapper">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <span class="progress-text" id="progressText">1 / 18</span>
+    </div>
+
+    <!-- Level Badge -->
+    <div class="level-badge" id="levelBadge">
+      <span class="level-emoji" id="levelEmoji">🌱</span>
+      <span class="level-name" id="levelName">The Basics</span>
+    </div>
+
+    <!-- Reaction Toast -->
+    <div class="reaction-toast" id="reactionToast"></div>
+
+    <!-- Question Card -->
+    <div class="card-container">
+      <div class="question-card" id="questionCard"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="quiz-nav" id="quizNav">
+      <button class="btn-nav btn-prev" id="btnPrev" onclick="prevQuestion()">← Back</button>
+      <div class="question-dots" id="questionDots"></div>
+      <button class="btn-nav btn-next" id="btnNext" onclick="nextQuestion()">Next →</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ OUTRO / THANK YOU ═══════════ -->
+  <section id="outro" class="screen">
+    <div id="confettiCanvas" aria-hidden="true"></div>
+
+    <div class="outro-content">
+      <div class="outro-heart-ring">
+        <span class="outro-emoji bounce-in">🥰</span>
+      </div>
+      <h1 class="outro-title glow-text">You're Incredible</h1>
+      <div class="outro-letter">
+        <p class="outro-message">
+          Thank you for playing along, beautiful.<br><br>
+          Every single answer you gave?<br>
+          I'm saving it. Memorizing it. Planning around it.<br><br>
+          Because someone as amazing as you<br>
+          deserves someone who remembers<br>
+          <span class="highlight">every little detail.</span>
+        </p>
+        <p class="outro-sub cursive">"The more I know you, the more I fall for you."</p>
+      </div>
+
+      <div class="outro-stats" id="outroStats"></div>
+
+      <div class="outro-buttons">
+        <button class="btn-glow" onclick="restartQuiz()">
+          <span>Play Again?</span>
+          <span class="btn-heart">🔄</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
