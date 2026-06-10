@@ -1,13 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════
-   ✨ "Hey You" — Romantic Quiz Game  ·  v2 CINEMATIC
-   Intro · Quiz · Particles · Starfield · Cursor Trail · Email
+   ✨ "Hey You" v3 ULTIMATE — Romantic Quiz Game
+   20 Questions · 5 Types · Interludes · 3D Tilt · Mesh BG
    ═══════════════════════════════════════════════════════════════ */
 
-// ╔══════════════════════════════════════════╗
-// ║  📧 EMAIL JS CONFIG — Fill these in!    ║
-// ║  Then uncomment the send block in       ║
-// ║  submitAnswers() below                  ║
-// ╚══════════════════════════════════════════╝
 const EMAIL_CONFIG = {
   serviceId:  'service_ts5652l',
   templateId: 'template_iwv2c0n',
@@ -16,315 +11,265 @@ const EMAIL_CONFIG = {
 
 
 /* ═══════════════════════════════════════
-   QUESTIONS — Better one-liners 🔥
+   QUESTIONS — 20 Mixed Types 🔥
+   Types: text, textarea, choice, thisOrThat, emojiRate, slider
    ═══════════════════════════════════════ */
 const questions = [
+  // ── LEVEL 1: The Basics 🌱 ──
   {
-    id: 'flower',
-    emoji: '🌸',
+    id: 'flower', emoji: '🌸', type: 'text',
     oneliner: "You know what's embarrassing? I could stare at you for hours but I still don't know which flower makes YOUR eyes light up.",
-    question: "So tell me — what's your favorite flower?",
-    type: 'text',
+    question: "What's your favorite flower?",
     placeholder: 'The one that makes you stop and smile...'
   },
   {
-    id: 'dish',
-    emoji: '🍜',
-    oneliner: "My mom asked me what you like to eat... and I just stood there like 🧍. Help me not be a disaster, please.",
-    question: "What's the dish you could eat every single day?",
-    type: 'text',
+    id: 'mountains_or_beach', emoji: '🌍', type: 'thisOrThat',
+    oneliner: "No wrong answers here... but your answer decides our first trip together 😏",
+    question: "Where does your soul belong?",
+    optionA: { emoji: '🏔️', label: 'Mountains' },
+    optionB: { emoji: '🏖️', label: 'Beach' }
+  },
+  {
+    id: 'dish', emoji: '🍜', type: 'text',
+    oneliner: "My mom asked what you like to eat and I just stood there like 🧍... save me.",
+    question: "What dish could you eat every single day?",
     placeholder: 'Make me hungry...'
   },
   {
-    id: 'movie',
-    emoji: '🎬',
-    oneliner: "I need to know your comfort movie so I can 'accidentally' suggest it on our next movie night. Smooth, right? 😏",
-    question: "What movie can you watch a hundred times and never get bored?",
-    type: 'text',
+    id: 'color', emoji: '🎨', type: 'choice',
+    oneliner: "If I painted the entire sky for you one evening, what color would make your heart skip?",
+    question: "What's your favorite color?",
+    options: ['Red ❤️', 'Blue 💙', 'Pink 💗', 'Purple 💜', 'Yellow 💛', 'Green 💚', 'Black 🖤', 'White 🤍']
+  },
+
+  // ── LEVEL 2: Getting Personal 🔥 ──
+  {
+    id: 'love_rain', emoji: '🌧️', type: 'emojiRate',
+    oneliner: "I need to know if 'chai + rain + you' is a valid date idea or if you'll murder me for it 🌧️",
+    question: "How much do you love rainy days?",
+    rateLabels: ['Nope 😤', 'Meh 😐', 'It\'s okay 🙂', 'Love it! 🥰', 'OBSESSED 🌧️💕']
+  },
+  {
+    id: 'movie', emoji: '🎬', type: 'text',
+    oneliner: "I need your comfort movie so I can 'accidentally' suggest it on our next movie night. Smooth, right? 😏",
+    question: "What movie can you rewatch forever?",
     placeholder: 'The one you never skip...'
   },
   {
-    id: 'color',
-    emoji: '🎨',
-    oneliner: "If I painted the entire sky just for you one evening, what color would make you smile the widest?",
-    question: "What's your favorite color?",
-    type: 'choice',
-    options: ['Red ❤️', 'Blue 💙', 'Pink 💗', 'Purple 💜', 'Yellow 💛', 'Green 💚', 'Black 🖤', 'White 🤍']
+    id: 'morning_or_night', emoji: '🌙', type: 'thisOrThat',
+    oneliner: "This determines if our future has sunrise hikes or midnight snack runs. Choose wisely.",
+    question: "When are you most alive?",
+    optionA: { emoji: '🌅', label: 'Mornings' },
+    optionB: { emoji: '🦉', label: 'Nights' }
   },
   {
-    id: 'song',
-    emoji: '🎵',
-    oneliner: "Every love story needs a soundtrack. I want to know the song that plays in your head when you feel like the main character.",
-    question: "What's YOUR song?",
-    type: 'text',
-    placeholder: 'Your personal anthem...'
+    id: 'song', emoji: '🎵', type: 'text',
+    oneliner: "Every love story needs a soundtrack. I want to know the song that plays in YOUR head when you feel unstoppable.",
+    question: "What's your personal anthem?",
+    placeholder: 'Your main character song...'
+  },
+
+  // ── LEVEL 3: Deep Dive 🌊 ──
+  {
+    id: 'introvert_extrovert', emoji: '🎭', type: 'slider',
+    oneliner: "Are you the 'cozy blanket fort at home' type or the 'let's dance at 2 AM' type? Slide to confess 🎚️",
+    question: "Where do you fall on this spectrum?",
+    sliderLeft: { emoji: '📚', label: 'Introvert' },
+    sliderRight: { emoji: '🎉', label: 'Extrovert' },
+    sliderLabels: ['Full Introvert', 'Mostly Intro', 'Ambivert', 'Mostly Extro', 'Full Extrovert']
   },
   {
-    id: 'place',
-    emoji: '✈️',
-    oneliner: "Close your eyes. We can go anywhere in the world right now — no tickets, no limits. Where are we?",
-    question: "What's your dream travel destination?",
-    type: 'text',
-    placeholder: 'I\'ll make it happen someday...'
-  },
-  {
-    id: 'season',
-    emoji: '🌦️',
-    oneliner: "Important research question: When do you feel most alive — when the flowers bloom, the rain falls, or the snow settles?",
-    question: "What's your favorite season?",
-    type: 'choice',
-    options: ['Spring 🌸', 'Summer ☀️', 'Monsoon 🌧️', 'Autumn 🍂', 'Winter ❄️']
-  },
-  {
-    id: 'comfort_food',
-    emoji: '🍕',
-    oneliner: "Bad days are illegal when you're around. But just in case life gets tough — what food should I always have ready for you?",
+    id: 'comfort_food', emoji: '🍕', type: 'text',
+    oneliner: "Bad days are illegal when you're around. But just in case — what food should I always have ready for you?",
     question: "What's your ultimate comfort food?",
-    type: 'text',
     placeholder: 'The emotional support meal...'
   },
   {
-    id: 'book',
-    emoji: '📖',
-    oneliner: "Tell me the book that lives rent-free in your head and I promise I'll read it this week. Even if it's 800 pages. For you? Worth it.",
-    question: "What's a book that changed the way you think?",
-    type: 'text',
+    id: 'season', emoji: '🌦️', type: 'choice',
+    oneliner: "When do you feel most alive? When flowers bloom, rain falls, or snow settles?",
+    question: "What's your favorite season?",
+    options: ['Spring 🌸', 'Summer ☀️', 'Monsoon 🌧️', 'Autumn 🍂', 'Winter ❄️']
+  },
+  {
+    id: 'book', emoji: '📖', type: 'text',
+    oneliner: "Tell me the book that lives rent-free in your head. I promise I'll read it this week. Even if it's 800 pages. For you? Worth it.",
+    question: "A book that changed the way you see the world?",
     placeholder: 'The one that stayed with you...'
   },
+
+  // ── LEVEL 4: Heart to Heart 💓 ──
   {
-    id: 'hobby',
-    emoji: '🎯',
-    oneliner: "Besides teaching your boyfriend how to survive (and English apparently), what makes you lose track of time?",
-    question: "What's your favorite thing to do when the world goes quiet?",
-    type: 'text',
-    placeholder: 'Besides being absolutely amazing...'
+    id: 'cook_or_order', emoji: '🍳', type: 'thisOrThat',
+    oneliner: "Be honest — do I need to learn cooking or just memorize the entire Zomato menu? 😂",
+    question: "Our ideal food night looks like...",
+    optionA: { emoji: '👩‍🍳', label: 'Cook Together' },
+    optionB: { emoji: '📱', label: 'Order In' }
   },
   {
-    id: 'morning_night',
-    emoji: '🌙',
-    oneliner: "This is critical scientific research 🔬 — should I send 'good morning beautiful' or 'goodnight gorgeous' first? Help a man out.",
-    question: "Morning person or night owl?",
-    type: 'choice',
-    options: ['Early Bird 🌅', 'Night Owl 🦉', 'Depends on my mood 🤷‍♀️', 'I never sleep 😴']
-  },
-  {
-    id: 'makes_laugh',
-    emoji: '😂',
-    oneliner: "I want to be the reason you can't stop laughing. Consider this question my cheat code — I'm not ashamed.",
-    question: "What ALWAYS makes you laugh, no matter what?",
-    type: 'text',
-    placeholder: 'Your happy trigger...'
-  },
-  {
-    id: 'dream_date',
-    emoji: '💑',
-    oneliner: "Plan our perfect day. No budget, no rules — just you and me and whatever makes your heart happy. Describe it, I dare you.",
-    question: "What's your idea of a perfect date?",
-    type: 'textarea',
+    id: 'dream_date', emoji: '💑', type: 'textarea',
+    oneliner: "Plan our perfect day. No budget, no rules. Just you and me and whatever makes your heart happy. I dare you.",
+    question: "Describe your dream date — go wild.",
     placeholder: 'Paint me a picture... I\'m taking notes 📝'
   },
   {
-    id: 'love_language',
-    emoji: '💕',
+    id: 'love_language', emoji: '💕', type: 'choice',
     oneliner: "How do you like to be loved? Because I refuse to guess wrong. I want to do it right — for you.",
     question: "What's your love language?",
-    type: 'choice',
     options: ['Words of Affirmation 💌', 'Quality Time ⏰', 'Physical Touch 🤗', 'Acts of Service 🛠️', 'Receiving Gifts 🎁']
   },
   {
-    id: 'teach_me',
-    emoji: '📝',
-    oneliner: "In 8 days you've already made me a better person than I was in 8 years. What's my next lesson, teacher?",
-    question: "What's something you want to teach me next?",
-    type: 'text',
-    placeholder: 'I\'m your most eager student...'
+    id: 'rate_my_texts', emoji: '📱', type: 'emojiRate',
+    oneliner: "Be brutally honest. My ego can handle it. Maybe. Probably not. Tell me anyway.",
+    question: "Rate my texting game — no mercy.",
+    rateLabels: ['Tragic 😬', 'Needs work 📝', 'Decent 👍', 'Really good 😊', 'Chef\'s kiss 💋']
+  },
+
+  // ── LEVEL 5: Final Boss 👑 ──
+  {
+    id: 'place', emoji: '✈️', type: 'text',
+    oneliner: "Close your eyes. We can go anywhere in the world right now — no tickets, no limits. Where are we?",
+    question: "What's your dream travel destination?",
+    placeholder: 'I\'ll make it happen someday...'
   },
   {
-    id: 'superpower',
-    emoji: '⚡',
-    oneliner: "You already have the power to make my heart stop with one look. But if you could pick a second one — go ahead, you deserve it.",
-    question: "If you could have any superpower, what would it be?",
-    type: 'text',
-    placeholder: 'Choose wisely (or don\'t, you\'re already super)...'
+    id: 'superpower', emoji: '⚡', type: 'text',
+    oneliner: "You already have the power to make my heart stop with one look. Pick a second one — you deserve it.",
+    question: "If you could have any superpower?",
+    placeholder: 'Choose wisely (you\'re already super)...'
   },
   {
-    id: 'together',
-    emoji: '🚀',
-    oneliner: "Here's the deal — the world is ours, and I'm in for everything. The crazier, the better. I just want it to be with you.",
-    question: "What's something you want us to do together someday?",
-    type: 'textarea',
-    placeholder: 'Our bucket list starts here...'
+    id: 'calls_or_texts', emoji: '📞', type: 'thisOrThat',
+    oneliner: "I need to know if I should practice my voice or my emoji game. This is critical intel 🕵️",
+    question: "How do you prefer to connect?",
+    optionA: { emoji: '📞', label: 'Long Calls' },
+    optionB: { emoji: '💬', label: 'Long Texts' }
   },
   {
-    id: 'about_me',
-    emoji: '🥺',
-    oneliner: "Last one. Be honest with me. I'm not fishing for compliments — okay maybe a little — but I really want to know...",
+    id: 'about_me', emoji: '🥺', type: 'textarea',
+    oneliner: "Last one. I'm not fishing for compliments — okay maybe a little — but I genuinely want to know...",
     question: "What made you say yes to this disaster of a boyfriend?",
-    type: 'textarea',
     placeholder: 'Make my entire day... 💕'
   }
 ];
 
 
 /* ═══════════════════════════════════════
-   INTRO SLIDE CONTENT
+   INTRO CONTENT
    ═══════════════════════════════════════ */
 const introContent = [
   { title: "Hey You", typewriter: false },
   { title: "Can I be honest with you for a second?", typewriter: true },
   { title: "These last 8 days have been magic", sub: "...and honestly? the best days of my life", typewriter: false },
-  { title: "You teach me, you care for me, you make everything better", sub: "no one has ever done that the way you do", typewriter: false },
+  { title: "You teach me, you care for me, you understand me", sub: "no one has ever done that the way you do", typewriter: false },
   { title: "But here's my little confession...", typewriter: true },
-  { title: "I don't even know your favorite flower 🤦‍♂️", sub: "...or your comfort movie, dream place, love language...", typewriter: false },
+  { title: "I don't even know your favorite flower", sub: "...or your comfort movie, dream place, love language...", typewriter: false },
   { title: "So I stayed up and built this little thing", typewriter: true },
-  {
-    title: "18 questions — some funny, some cheesy, all from the heart",
-    sub: "because you deserve someone who remembers every little detail",
-    typewriter: false
-  },
+  { title: "20 questions — fun, romantic, and a little crazy", sub: "because you deserve someone who remembers every little detail", typewriter: false },
 ];
-
-const introTimings = [3000, 3200, 3500, 3800, 3000, 4000, 3000]; // ms per slide (last waits for click)
+const introTimings = [3000, 3200, 3500, 3800, 3000, 4000, 3000];
 
 
 /* ═══════════════════════════════════════
-   LEVEL SYSTEM 🎮
+   LEVELS & INTERLUDES
    ═══════════════════════════════════════ */
 const levels = [
-  { name: 'The Basics',      emoji: '🌱', range: [0, 3] },
-  { name: 'Getting Warmer',  emoji: '🔥', range: [4, 7] },
-  { name: 'Deep Diving',     emoji: '🌊', range: [8, 11] },
-  { name: 'Heart Unlocked',  emoji: '💓', range: [12, 14] },
-  { name: 'Final Boss',      emoji: '👑', range: [15, 17] },
+  { name: 'The Basics',       emoji: '🌱', range: [0, 3] },
+  { name: 'Getting Personal', emoji: '🔥', range: [4, 7] },
+  { name: 'Deep Dive',        emoji: '🌊', range: [8, 11] },
+  { name: 'Heart to Heart',   emoji: '💓', range: [12, 15] },
+  { name: 'Final Boss',       emoji: '👑', range: [16, 19] },
 ];
+
+const interludes = {
+  4:  { emoji: '💕', msg: "You're doing amazing, beautiful...", sub: "Every answer makes me fall for you a little more" },
+  8:  { emoji: '🥰', msg: "Halfway there...", sub: "and I'm already obsessed with knowing you" },
+  12: { emoji: '💫', msg: "You're incredible, you know that?", sub: "almost done... but I could ask you questions forever" },
+  16: { emoji: '👑', msg: "Last stretch...", sub: "these ones are close to my heart" },
+};
 
 
 /* ═══════════════════════════════════════
    REACTIONS
    ═══════════════════════════════════════ */
 const reactions = [
-  "Noted! 📝", "Ooh, interesting... 🤔", "Love that! 💕",
-  "Impeccable taste 👌", "Awww! 🥰", "Taking mental notes... ✍️",
-  "Perfect answer! ✨", "I KNEW it! 😄", "Saving this forever 💾",
-  "You're the best 💖", "10/10 vibes 🔥", "That's adorable 🥹",
-  "Screenshotting this 📸", "My heart! 💓", "Tell me more 🫠",
-  "Obsessed with this answer 😍", "You're unreal 🤯", "Chef's kiss 💋"
+  "Noted! 📝", "Ooh interesting 🤔", "Love that! 💕",
+  "Impeccable taste 👌", "Awww! 🥰", "Taking notes ✍️",
+  "Perfect! ✨", "I KNEW IT 😄", "Saving forever 💾",
+  "You're the best 💖", "10/10 vibes 🔥", "Adorable 🥹",
+  "Screenshotting 📸", "My heart 💓", "Tell me more 🫠",
+  "Obsessed 😍", "You're unreal 🤯", "Chef's kiss 💋"
 ];
 
 
 /* ═══════════════════════════════════════
    STATE
    ═══════════════════════════════════════ */
-let currentSlide    = 0;
-let currentQuestion = 0;
-let answers         = {};
-let isTransitioning = false;
-let introTimer      = null;
-
-const totalSlides    = introContent.length;
+let currentSlide = 0, currentQuestion = 0;
+let answers = {};
+let isTransitioning = false, introTimer = null, interludeTimer = null;
+const totalSlides = introContent.length;
 const totalQuestions = questions.length;
 
 
 /* ═══════════════════════════════════════
-   LOADING SCREEN
+   LOADING
    ═══════════════════════════════════════ */
 function hideLoader() {
-  const loader = document.getElementById('loader');
-  const intro  = document.getElementById('intro');
-
   setTimeout(() => {
-    loader.classList.remove('active');
+    document.getElementById('loader').classList.remove('active');
     setTimeout(() => {
-      intro.classList.add('active');
+      document.getElementById('intro').classList.add('active');
       runIntroSlide(0);
     }, 500);
-  }, 2600); // Let the heart animation complete
+  }, 2600);
 }
 
 
 /* ═══════════════════════════════════════
-   INTRO CINEMATIC ENGINE
+   INTRO ENGINE
    ═══════════════════════════════════════ */
 function runIntroSlide(index) {
   if (index >= totalSlides) return;
-
   const slides = document.querySelectorAll('.intro-slide');
-
-  // Exit previous
-  slides.forEach((s, i) => {
-    s.classList.remove('active');
-    if (i < index) s.classList.add('exit');
-  });
-
-  // Activate current
+  slides.forEach((s, i) => { s.classList.remove('active'); if (i < index) s.classList.add('exit'); });
   const slide = slides[index];
-  slide.classList.remove('exit');
-  slide.classList.add('active');
+  slide.classList.remove('exit'); slide.classList.add('active');
   currentSlide = index;
 
-  const data    = introContent[index];
+  const data = introContent[index];
   const titleEl = document.getElementById(`introTitle${index}`);
-  const subEl   = document.getElementById(`introSub${index}`);
+  const subEl = document.getElementById(`introSub${index}`);
 
-  // Type or set title
   if (data.typewriter && titleEl) {
-    typewrite(titleEl, data.title, 38, () => {
-      if (subEl && data.sub) showSub(subEl, data.sub);
-    });
+    typewrite(titleEl, data.title, 35, () => { if (subEl && data.sub) showSub(subEl, data.sub); });
   } else {
     if (titleEl) titleEl.innerHTML = data.title;
-    if (subEl && data.sub) {
-      setTimeout(() => showSub(subEl, data.sub), 500);
-    }
+    if (subEl && data.sub) setTimeout(() => showSub(subEl, data.sub), 500);
   }
 
-  // Auto-advance (except last slide)
   if (index < totalSlides - 1) {
-    introTimer = setTimeout(() => {
-      runIntroSlide(index + 1);
-    }, introTimings[index]);
+    introTimer = setTimeout(() => runIntroSlide(index + 1), introTimings[index]);
   }
 }
 
-function showSub(el, text) {
-  el.textContent = text;
-  el.classList.add('visible');
-}
+function showSub(el, text) { el.textContent = text; el.classList.add('visible'); }
+function skipIntro() { clearTimeout(introTimer); startQuiz(); }
 
-function skipIntro() {
-  clearTimeout(introTimer);
-  startQuiz();
-}
-
-
-/* ═══════════════════════════════════════
-   TYPEWRITER EFFECT ⌨️
-   ═══════════════════════════════════════ */
-function typewrite(element, text, speed = 40, onComplete) {
-  element.innerHTML = '';
+function typewrite(el, text, speed = 35, cb) {
+  el.innerHTML = '';
   let i = 0;
-
   const cursor = document.createElement('span');
   cursor.className = 'typewriter-cursor';
-  element.appendChild(cursor);
-
-  function type() {
+  el.appendChild(cursor);
+  (function type() {
     if (i < text.length) {
-      element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+      el.insertBefore(document.createTextNode(text.charAt(i)), cursor);
       i++;
-      setTimeout(type, speed + Math.random() * 20); // Slight randomness for realism
+      setTimeout(type, speed + Math.random() * 18);
     } else {
-      // Remove cursor after a beat
-      setTimeout(() => {
-        cursor.style.animation = 'none';
-        cursor.style.opacity = '0';
-        cursor.style.transition = 'opacity 0.5s';
-        if (onComplete) onComplete();
-      }, 600);
+      setTimeout(() => { cursor.style.transition = 'opacity 0.5s'; cursor.style.opacity = '0'; if (cb) cb(); }, 600);
     }
-  }
-
-  type();
+  })();
 }
 
 
@@ -333,15 +278,9 @@ function typewrite(element, text, speed = 40, onComplete) {
    ═══════════════════════════════════════ */
 function startQuiz() {
   clearTimeout(introTimer);
-
-  const intro = document.getElementById('intro');
-  const quiz  = document.getElementById('quiz');
-
-  intro.classList.remove('active');
-
+  document.getElementById('intro').classList.remove('active');
   setTimeout(() => {
-    quiz.classList.add('active');
-    renderDots();
+    document.getElementById('quiz').classList.add('active');
     renderQuestion(0);
     updateProgress();
     updateLevel();
@@ -354,31 +293,61 @@ function startQuiz() {
    ═══════════════════════════════════════ */
 function renderQuestion(index, direction = 'forward') {
   const card = document.getElementById('questionCard');
-  const q    = questions[index];
+  const q = questions[index];
+  const exitCls = direction === 'forward' ? 'card-exit' : 'card-exit-back';
+  const enterCls = direction === 'forward' ? 'card-enter' : 'card-enter-back';
 
-  const exitClass  = direction === 'forward' ? 'card-exit' : 'card-exit-back';
-  const enterClass = direction === 'forward' ? 'card-enter' : 'card-enter-back';
-
-  card.classList.add(exitClass);
+  card.classList.add(exitCls);
 
   setTimeout(() => {
-    const savedAnswer = answers[q.id] || '';
+    const saved = answers[q.id] || '';
     let inputHTML = '';
 
-    if (q.type === 'text') {
-      inputHTML = `<input type="text" class="text-input" id="answerInput"
-        placeholder="${q.placeholder}" value="${esc(savedAnswer)}"
-        autocomplete="off" spellcheck="false" />`;
-    } else if (q.type === 'textarea') {
-      inputHTML = `<textarea class="text-input" id="answerInput"
-        placeholder="${q.placeholder}" rows="3" spellcheck="false">${esc(savedAnswer)}</textarea>`;
-    } else if (q.type === 'choice') {
-      inputHTML = `<div class="choices-grid" id="choicesGrid">
-        ${q.options.map(opt => `
-          <button class="choice-btn ${savedAnswer === opt ? 'selected' : ''}"
-            data-value="${esc(opt)}" onclick="selectChoice(this)">${opt}</button>
-        `).join('')}
-      </div>`;
+    switch (q.type) {
+      case 'text':
+        inputHTML = `<input type="text" class="text-input" id="answerInput" placeholder="${q.placeholder}" value="${esc(saved)}" autocomplete="off" spellcheck="false"/>`;
+        break;
+
+      case 'textarea':
+        inputHTML = `<textarea class="text-input" id="answerInput" placeholder="${q.placeholder}" rows="3" spellcheck="false">${esc(saved)}</textarea>`;
+        break;
+
+      case 'choice':
+        inputHTML = `<div class="choices-grid">${q.options.map(o =>
+          `<button class="choice-btn ${saved===o?'selected':''}" data-value="${esc(o)}" onclick="selectChoice(this)">${o}</button>`
+        ).join('')}</div>`;
+        break;
+
+      case 'thisOrThat':
+        inputHTML = `<div class="tot-wrapper"><div class="tot-container">
+          <div class="tot-card ${saved===q.optionA.label?'selected':''} ${saved===q.optionB.label?'dimmed':''}" data-value="${q.optionA.label}" onclick="selectTOT(this,'${q.optionA.label}')">
+            <span class="tot-emoji">${q.optionA.emoji}</span><span class="tot-label">${q.optionA.label}</span>
+          </div>
+          <div class="tot-card ${saved===q.optionB.label?'selected':''} ${saved===q.optionA.label?'dimmed':''}" data-value="${q.optionB.label}" onclick="selectTOT(this,'${q.optionB.label}')">
+            <span class="tot-emoji">${q.optionB.emoji}</span><span class="tot-label">${q.optionB.label}</span>
+          </div>
+        </div><div class="tot-or">or</div></div>`;
+        break;
+
+      case 'emojiRate':
+        const savedRate = saved ? parseInt(saved) : 0;
+        inputHTML = `<div class="emoji-rate-container">${[1,2,3,4,5].map(n =>
+          `<span class="emoji-heart ${n<=savedRate?'filled':''}" data-val="${n}" onclick="selectRate(${n})">❤️</span>`
+        ).join('')}</div><div class="rate-label" id="rateLabel">${savedRate ? q.rateLabels[savedRate-1] : ''}</div>`;
+        break;
+
+      case 'slider':
+        const savedSlider = saved || '50';
+        const sliderIdx = Math.round(parseInt(savedSlider) / 25);
+        inputHTML = `<div class="slider-container">
+          <div class="slider-labels">
+            <div class="slider-end"><span class="slider-end-emoji">${q.sliderLeft.emoji}</span><span class="slider-end-text">${q.sliderLeft.label}</span></div>
+            <div class="slider-end"><span class="slider-end-emoji">${q.sliderRight.emoji}</span><span class="slider-end-text">${q.sliderRight.label}</span></div>
+          </div>
+          <input type="range" class="custom-slider" id="sliderInput" min="0" max="100" value="${savedSlider}" oninput="updateSliderLabel()"/>
+          <div class="slider-value" id="sliderLabel">${q.sliderLabels[sliderIdx]}</div>
+        </div>`;
+        break;
     }
 
     card.innerHTML = `
@@ -388,25 +357,25 @@ function renderQuestion(index, direction = 'forward') {
       ${inputHTML}
     `;
 
-    card.classList.remove(exitClass);
-    card.classList.add(enterClass);
+    card.classList.remove(exitCls);
+    card.classList.add(enterCls);
 
     setTimeout(() => {
-      card.classList.remove(enterClass);
+      card.classList.remove(enterCls);
       const input = document.getElementById('answerInput');
       if (input) {
         input.focus();
-        input.addEventListener('keydown', e => {
-          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); nextQuestion(); }
-        });
+        input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); nextQuestion(); } });
       }
+      init3DTilt();
     }, 550);
 
     updateNavButtons();
-    updateDots();
   }, 380);
 }
 
+
+/* ─── Selection Handlers ─── */
 function selectChoice(btn) {
   btn.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
@@ -414,12 +383,45 @@ function selectChoice(btn) {
   createSparkle(btn);
 }
 
+function selectTOT(card, value) {
+  const cards = card.parentElement.querySelectorAll('.tot-card');
+  cards.forEach(c => { c.classList.remove('selected','dimmed'); });
+  card.classList.add('selected');
+  cards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
+  answers[questions[currentQuestion].id] = value;
+  createSparkle(card);
+}
+
+function selectRate(val) {
+  const q = questions[currentQuestion];
+  const hearts = document.querySelectorAll('.emoji-heart');
+  hearts.forEach((h, i) => {
+    h.classList.remove('filled');
+    if (i < val) {
+      setTimeout(() => h.classList.add('filled'), i * 60);
+    }
+  });
+  answers[q.id] = String(val);
+  setTimeout(() => {
+    document.getElementById('rateLabel').textContent = q.rateLabels[val - 1];
+  }, val * 60 + 100);
+}
+
+function updateSliderLabel() {
+  const q = questions[currentQuestion];
+  const slider = document.getElementById('sliderInput');
+  const val = parseInt(slider.value);
+  const idx = Math.round(val / 25);
+  document.getElementById('sliderLabel').textContent = q.sliderLabels[idx];
+  answers[q.id] = String(val);
+}
+
 function getCurrentAnswer() {
   const q = questions[currentQuestion];
-  if (q.type === 'choice') {
-    const sel = document.querySelector('.choice-btn.selected');
-    return sel ? sel.dataset.value : '';
-  }
+  if (q.type === 'choice') { const s = document.querySelector('.choice-btn.selected'); return s ? s.dataset.value : ''; }
+  if (q.type === 'thisOrThat') { const s = document.querySelector('.tot-card.selected'); return s ? s.dataset.value : ''; }
+  if (q.type === 'emojiRate') return answers[q.id] || '';
+  if (q.type === 'slider') { const s = document.getElementById('sliderInput'); return s ? s.value : ''; }
   const input = document.getElementById('answerInput');
   return input ? input.value.trim() : '';
 }
@@ -435,37 +437,45 @@ function saveCurrentAnswer() {
 function nextQuestion() {
   if (isTransitioning) return;
   saveCurrentAnswer();
-
   if (currentQuestion >= totalQuestions - 1) { submitAnswers(); return; }
 
   isTransitioning = true;
   showReaction();
 
-  setTimeout(() => {
-    const prevLevel = getLevel(currentQuestion);
-    currentQuestion++;
-    const newLevel = getLevel(currentQuestion);
+  const nextIdx = currentQuestion + 1;
 
-    renderQuestion(currentQuestion, 'forward');
-    updateProgress();
-
-    if (newLevel !== prevLevel) triggerLevelUp();
-    updateLevel();
-
-    isTransitioning = false;
-  }, 850);
+  // Check for interlude
+  if (interludes[nextIdx]) {
+    setTimeout(() => {
+      showInterlude(interludes[nextIdx], () => {
+        const prevLevel = getLevel(currentQuestion);
+        currentQuestion = nextIdx;
+        renderQuestion(currentQuestion, 'forward');
+        updateProgress();
+        if (getLevel(currentQuestion) !== prevLevel) triggerLevelUp();
+        updateLevel();
+        isTransitioning = false;
+      });
+    }, 600);
+  } else {
+    setTimeout(() => {
+      const prevLevel = getLevel(currentQuestion);
+      currentQuestion = nextIdx;
+      renderQuestion(currentQuestion, 'forward');
+      updateProgress();
+      if (getLevel(currentQuestion) !== prevLevel) triggerLevelUp();
+      updateLevel();
+      isTransitioning = false;
+    }, 850);
+  }
 }
 
 function prevQuestion() {
   if (isTransitioning || currentQuestion <= 0) return;
-  saveCurrentAnswer();
-  isTransitioning = true;
-
+  saveCurrentAnswer(); isTransitioning = true;
   currentQuestion--;
   renderQuestion(currentQuestion, 'back');
-  updateProgress();
-  updateLevel();
-
+  updateProgress(); updateLevel();
   setTimeout(() => { isTransitioning = false; }, 550);
 }
 
@@ -478,136 +488,154 @@ function updateProgress() {
 function updateNavButtons() {
   const prev = document.getElementById('btnPrev');
   const next = document.getElementById('btnNext');
-
   prev.classList.toggle('hidden', currentQuestion === 0);
-
   if (currentQuestion === totalQuestions - 1) {
-    next.textContent = '💕 Submit';
-    next.classList.add('submit-btn');
+    next.textContent = '💕 Submit'; next.classList.add('submit-btn');
   } else {
-    next.textContent = 'Next →';
-    next.classList.remove('submit-btn');
+    next.textContent = 'Next →'; next.classList.remove('submit-btn');
   }
 }
 
-
-/* ─── Level System ─── */
-function getLevel(qIndex) {
-  return levels.findIndex(l => qIndex >= l.range[0] && qIndex <= l.range[1]);
-}
-
+function getLevel(i) { return levels.findIndex(l => i >= l.range[0] && i <= l.range[1]); }
 function updateLevel() {
-  const lvl = levels[getLevel(currentQuestion)];
-  document.getElementById('levelEmoji').textContent = lvl.emoji;
-  document.getElementById('levelName').textContent  = lvl.name;
+  const l = levels[getLevel(currentQuestion)];
+  document.getElementById('levelEmoji').textContent = l.emoji;
+  document.getElementById('levelName').textContent = l.name;
 }
-
 function triggerLevelUp() {
-  const badge = document.getElementById('levelBadge');
-  badge.classList.remove('level-up');
-  void badge.offsetWidth; // Force reflow
-  badge.classList.add('level-up');
-  setTimeout(() => badge.classList.remove('level-up'), 800);
+  const b = document.getElementById('levelBadge');
+  b.classList.remove('level-up'); void b.offsetWidth; b.classList.add('level-up');
+  setTimeout(() => b.classList.remove('level-up'), 800);
 }
 
-
-/* ─── Question Dots ─── */
-function renderDots() {
-  const container = document.getElementById('questionDots');
-  let html = '';
-  for (let i = 0; i < totalQuestions; i++) {
-    html += `<div class="q-dot" data-index="${i}"></div>`;
-  }
-  container.innerHTML = html;
-}
-
-function updateDots() {
-  const dots = document.querySelectorAll('.q-dot');
-  dots.forEach((dot, i) => {
-    dot.classList.remove('current', 'answered');
-    if (i === currentQuestion) dot.classList.add('current');
-    else if (answers[questions[i].id]) dot.classList.add('answered');
-  });
-}
-
-
-/* ─── Reaction Toast ─── */
 function showReaction() {
-  const toast = document.getElementById('reactionToast');
-  toast.textContent = reactions[Math.floor(Math.random() * reactions.length)];
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 700);
+  const t = document.getElementById('reactionToast');
+  t.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 700);
 }
 
 
 /* ═══════════════════════════════════════
-   SUBMIT
+   INTERLUDE (Chapter Break)
+   ═══════════════════════════════════════ */
+let interludeCallback = null;
+
+function showInterlude(data, callback) {
+  interludeCallback = callback;
+  const overlay = document.getElementById('interludeOverlay');
+  document.getElementById('interludeEmoji').textContent = data.emoji;
+  document.getElementById('interludeMsg').textContent = data.msg;
+  document.getElementById('interludeSub').textContent = data.sub;
+  const bar = document.getElementById('interludeBar');
+  bar.style.transition = 'none'; bar.style.width = '0%';
+
+  overlay.classList.add('active');
+
+  // Start progress bar
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = 'width 3s linear';
+      bar.style.width = '100%';
+    });
+  });
+
+  interludeTimer = setTimeout(dismissInterlude, 3200);
+}
+
+function dismissInterlude() {
+  clearTimeout(interludeTimer);
+  document.getElementById('interludeOverlay').classList.remove('active');
+  setTimeout(() => { if (interludeCallback) { interludeCallback(); interludeCallback = null; } }, 500);
+}
+
+
+/* ═══════════════════════════════════════
+   3D TILT EFFECT
+   ═══════════════════════════════════════ */
+function init3DTilt() {
+  const card = document.getElementById('questionCard');
+  const container = document.getElementById('cardContainer');
+
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotateX = (y - 0.5) * -8;
+    const rotateY = (x - 0.5) * 8;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  container.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.5s ease-out';
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    setTimeout(() => { card.style.transition = 'transform 0.15s ease-out'; }, 500);
+  });
+}
+
+
+/* ═══════════════════════════════════════
+   SUBMIT & EMAIL
    ═══════════════════════════════════════ */
 function submitAnswers() {
   saveCurrentAnswer();
 
-  // ─── Build template params (each answer = separate variable) ───
-  const templateParams = {
-    subject:      '💕 Quiz Answers from Your Girl!',
-    from_name:    'Hey You Quiz 💕',
+  // Map slider/rate values to readable text
+  const sliderQ = questions.find(q => q.id === 'introvert_extrovert');
+  const sliderVal = answers.introvert_extrovert ? sliderQ.sliderLabels[Math.round(parseInt(answers.introvert_extrovert) / 25)] : '(skipped)';
+  const rainQ = questions.find(q => q.id === 'love_rain');
+  const rainVal = answers.love_rain ? rainQ.rateLabels[parseInt(answers.love_rain) - 1] : '(skipped)';
+  const textsQ = questions.find(q => q.id === 'rate_my_texts');
+  const textsVal = answers.rate_my_texts ? textsQ.rateLabels[parseInt(answers.rate_my_texts) - 1] : '(skipped)';
+
+  const params = {
+    subject: '💕 Quiz Answers from Your Girl!',
+    from_name: 'Hey You Quiz 💕',
     submitted_at: new Date().toLocaleString(),
-    // Individual answers matching {{variable}} in EmailJS template
-    flower:       answers.flower       || '(skipped)',
-    dish:         answers.dish         || '(skipped)',
-    movie:        answers.movie        || '(skipped)',
-    color:        answers.color        || '(skipped)',
-    song:         answers.song         || '(skipped)',
-    place:        answers.place        || '(skipped)',
-    season:       answers.season       || '(skipped)',
+    flower: answers.flower || '(skipped)',
+    mountains_or_beach: answers.mountains_or_beach || '(skipped)',
+    dish: answers.dish || '(skipped)',
+    color: answers.color || '(skipped)',
+    love_rain: rainVal,
+    movie: answers.movie || '(skipped)',
+    morning_or_night: answers.morning_or_night || '(skipped)',
+    song: answers.song || '(skipped)',
+    introvert_extrovert: sliderVal,
     comfort_food: answers.comfort_food || '(skipped)',
-    book:         answers.book         || '(skipped)',
-    hobby:        answers.hobby        || '(skipped)',
-    morning_night:answers.morning_night|| '(skipped)',
-    makes_laugh:  answers.makes_laugh  || '(skipped)',
-    dream_date:   answers.dream_date   || '(skipped)',
-    love_language: answers.love_language|| '(skipped)',
-    teach_me:     answers.teach_me     || '(skipped)',
-    superpower:   answers.superpower   || '(skipped)',
-    together:     answers.together     || '(skipped)',
-    about_me:     answers.about_me     || '(skipped)',
-    // Also send the plain text version as backup
-    message:      buildEmailBody(),
+    season: answers.season || '(skipped)',
+    book: answers.book || '(skipped)',
+    cook_or_order: answers.cook_or_order || '(skipped)',
+    dream_date: answers.dream_date || '(skipped)',
+    love_language: answers.love_language || '(skipped)',
+    rate_my_texts: textsVal,
+    place: answers.place || '(skipped)',
+    superpower: answers.superpower || '(skipped)',
+    calls_or_texts: answers.calls_or_texts || '(skipped)',
+    about_me: answers.about_me || '(skipped)',
+    message: buildEmailBody(sliderVal, rainVal, textsVal),
   };
 
-  // ─── SEND VIA EMAILJS ───
-  // Fill EMAIL_CONFIG at the top of this file, then this works automatically!
   if (EMAIL_CONFIG.serviceId !== 'YOUR_SERVICE_ID') {
     emailjs.init(EMAIL_CONFIG.publicKey);
-    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, templateParams)
-      .then(() => {
-        console.log('✅ Email sent successfully!');
-      })
-      .catch(err => {
-        console.error('❌ Email failed:', err);
-      });
+    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, params)
+      .then(() => console.log('✅ Email sent!'))
+      .catch(err => console.error('❌ Email failed:', err));
   } else {
-    console.log('⚠️ EmailJS not configured. Fill EMAIL_CONFIG in script.js');
-    console.log('═══ TEMPLATE PARAMS (this is what EmailJS would send) ═══');
-    console.log(JSON.stringify(templateParams, null, 2));
+    console.log('⚠️ EmailJS not configured');
+    console.log(JSON.stringify(params, null, 2));
   }
 
   showOutro();
 }
 
-function buildEmailBody() {
-  let body = '💕 Quiz Answers — "Hey You" Game 💕\n';
-  body += '━'.repeat(40) + '\n\n';
-
+function buildEmailBody(sliderVal, rainVal, textsVal) {
+  let b = '💕 Quiz Answers — "Hey You" Game 💕\n' + '━'.repeat(40) + '\n\n';
+  const readable = { ...answers, introvert_extrovert: sliderVal, love_rain: rainVal, rate_my_texts: textsVal };
   questions.forEach(q => {
-    const ans = answers[q.id] || '(skipped)';
-    body += `${q.emoji}  ${q.question}\n`;
-    body += `   ➜  ${ans}\n\n`;
+    b += `${q.emoji}  ${q.question}\n   ➜  ${readable[q.id] || '(skipped)'}\n\n`;
   });
-
-  body += '━'.repeat(40) + '\n';
-  body += `📅 Submitted: ${new Date().toLocaleString()}\n`;
-  body += '❤️ Made with love\n';
-  return body;
+  b += '━'.repeat(40) + `\n📅 ${new Date().toLocaleString()}\n❤️ Made with love\n`;
+  return b;
 }
 
 
@@ -615,210 +643,140 @@ function buildEmailBody() {
    OUTRO
    ═══════════════════════════════════════ */
 function showOutro() {
-  const quiz  = document.getElementById('quiz');
-  const outro = document.getElementById('outro');
-
-  quiz.classList.remove('active');
-
+  document.getElementById('quiz').classList.remove('active');
   setTimeout(() => {
-    outro.classList.add('active');
+    document.getElementById('outro').classList.add('active');
     renderOutroStats();
     launchConfetti();
   }, 700);
 }
 
 function renderOutroStats() {
-  const stats = document.getElementById('outroStats');
+  const sliderQ = questions.find(q => q.id === 'introvert_extrovert');
+  const sliderVal = answers.introvert_extrovert ? sliderQ.sliderLabels[Math.round(parseInt(answers.introvert_extrovert) / 25)] : null;
+  const rainQ = questions.find(q => q.id === 'love_rain');
+  const rainVal = answers.love_rain ? `${'❤️'.repeat(parseInt(answers.love_rain))}` : null;
 
-  const highlights = [
-    { emoji: '🌸', label: 'Her Flower',     value: answers.flower },
-    { emoji: '🎬', label: 'Her Movie',       value: answers.movie },
-    { emoji: '💕', label: 'Love Language',    value: answers.love_language },
-    { emoji: '✈️', label: 'Dream Place',      value: answers.place },
-    { emoji: '🍕', label: 'Comfort Food',     value: answers.comfort_food },
-    { emoji: '🎵', label: 'Her Song',         value: answers.song },
+  const hl = [
+    { emoji:'🌸', label:'Her Flower', value: answers.flower },
+    { emoji:'🎬', label:'Her Movie', value: answers.movie },
+    { emoji:'💕', label:'Love Language', value: answers.love_language },
+    { emoji:'✈️', label:'Dream Place', value: answers.place },
+    { emoji:'🌧️', label:'Loves Rain', value: rainVal },
+    { emoji:'🎭', label:'Personality', value: sliderVal },
   ].filter(h => h.value);
 
-  stats.innerHTML = highlights.map(h => `
-    <div class="stat-card">
-      <span class="stat-emoji">${h.emoji}</span>
-      <div class="stat-label">${h.label}</div>
-      <div class="stat-value">${h.value}</div>
-    </div>
-  `).join('');
+  document.getElementById('outroStats').innerHTML = hl.map(h =>
+    `<div class="stat-card"><span class="stat-emoji">${h.emoji}</span><div class="stat-label">${h.label}</div><div class="stat-value">${h.value}</div></div>`
+  ).join('');
 }
 
 function restartQuiz() {
-  currentQuestion = 0;
-  answers = {};
-
-  const outro = document.getElementById('outro');
-  const quiz  = document.getElementById('quiz');
-
-  outro.classList.remove('active');
+  currentQuestion = 0; answers = {};
+  document.getElementById('outro').classList.remove('active');
   setTimeout(() => {
-    quiz.classList.add('active');
-    renderDots();
-    renderQuestion(0);
-    updateProgress();
-    updateLevel();
+    document.getElementById('quiz').classList.add('active');
+    renderQuestion(0); updateProgress(); updateLevel();
   }, 700);
 }
 
 
 /* ═══════════════════════════════════════
-   CONFETTI 🎉
+   CONFETTI
    ═══════════════════════════════════════ */
 function launchConfetti() {
-  const canvas = document.getElementById('confettiCanvas');
-  const shapes = ['❤️','💕','✨','🌸','💖','🎉','💗','⭐','🥰','💫'];
-
-  for (let i = 0; i < 80; i++) {
+  const c = document.getElementById('confettiCanvas');
+  const shapes = ['❤️','💕','✨','🌸','💖','🎉','💗','⭐','🥰','💫','🦋'];
+  for (let i = 0; i < 90; i++) {
     setTimeout(() => {
-      const piece = document.createElement('div');
-      piece.className = 'confetti-piece';
-      piece.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-      piece.style.left = Math.random() * 100 + '%';
-      piece.style.fontSize = (Math.random() * 18 + 10) + 'px';
-      piece.style.animationDuration = (Math.random() * 3.5 + 2.5) + 's';
-      canvas.appendChild(piece);
-      setTimeout(() => piece.remove(), 6000);
-    }, i * 60);
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.textContent = shapes[Math.floor(Math.random()*shapes.length)];
+      p.style.left = Math.random()*100+'%';
+      p.style.fontSize = (Math.random()*18+10)+'px';
+      p.style.animationDuration = (Math.random()*3.5+2.5)+'s';
+      c.appendChild(p);
+      setTimeout(()=>p.remove(),6500);
+    }, i*50);
   }
 }
 
 
 /* ═══════════════════════════════════════
-   STARFIELD ⭐
+   STARFIELD
    ═══════════════════════════════════════ */
 function initStarfield() {
-  const container = document.getElementById('starfield');
-  const count = window.innerWidth < 640 ? 80 : 160;
-
+  const c = document.getElementById('starfield');
+  const count = window.innerWidth < 640 ? 60 : 130;
   for (let i = 0; i < count; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    const size = Math.random() * 2.5 + 0.5;
-    star.style.width  = size + 'px';
-    star.style.height = size + 'px';
-    star.style.left   = Math.random() * 100 + '%';
-    star.style.top    = Math.random() * 100 + '%';
-    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-    star.style.animationDelay    = (Math.random() * 4) + 's';
-    star.style.opacity = Math.random() * 0.5 + 0.1;
-    container.appendChild(star);
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random()*2+0.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;opacity:${Math.random()*0.4+0.08}`;
+    c.appendChild(s);
   }
 }
 
 
 /* ═══════════════════════════════════════
-   FLOATING HEART PARTICLES
+   PARTICLES
    ═══════════════════════════════════════ */
 function initParticles() {
-  const container = document.getElementById('particles');
-  const hearts = ['💕','💗','💖','✨','💫','🌸','♥','🤍'];
-
+  const c = document.getElementById('particles');
+  const h = ['💕','💗','💖','✨','💫','🌸','♥'];
   function spawn() {
-    const heart = document.createElement('div');
-    heart.className = 'particle-heart';
-    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    heart.style.left = Math.random() * 100 + '%';
-    heart.style.fontSize = (Math.random() * 14 + 8) + 'px';
-    const dur = Math.random() * 14 + 10;
-    heart.style.animationDuration = dur + 's';
-    container.appendChild(heart);
-    setTimeout(() => heart.remove(), dur * 1000);
+    const el = document.createElement('div');
+    el.className = 'particle-heart';
+    el.textContent = h[Math.floor(Math.random()*h.length)];
+    el.style.left = Math.random()*100+'%';
+    el.style.fontSize = (Math.random()*14+8)+'px';
+    const d = Math.random()*14+10;
+    el.style.animationDuration = d+'s';
+    c.appendChild(el);
+    setTimeout(()=>el.remove(), d*1000);
   }
-
-  for (let i = 0; i < 6; i++) setTimeout(spawn, i * 600);
-  setInterval(spawn, 3000);
+  for (let i=0;i<5;i++) setTimeout(spawn, i*700);
+  setInterval(spawn, 3500);
 }
 
 
 /* ═══════════════════════════════════════
-   CURSOR HEART TRAIL 💕
+   SPARKLE
    ═══════════════════════════════════════ */
-function initCursorTrail() {
-  const container = document.getElementById('cursorTrail');
-  const emojis = ['💕','✨','💗','♥','💫'];
-  let lastX = 0, lastY = 0;
-  let throttle = false;
-
-  document.addEventListener('mousemove', (e) => {
-    if (throttle) return;
-    throttle = true;
-
-    // Only spawn if moved enough
-    const dx = e.clientX - lastX;
-    const dy = e.clientY - lastY;
-    if (Math.sqrt(dx*dx + dy*dy) > 30) {
-      const dot = document.createElement('div');
-      dot.className = 'trail-dot';
-      dot.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      dot.style.left = e.clientX + 'px';
-      dot.style.top  = e.clientY + 'px';
-      container.appendChild(dot);
-      setTimeout(() => dot.remove(), 900);
-
-      lastX = e.clientX;
-      lastY = e.clientY;
-    }
-
-    setTimeout(() => { throttle = false; }, 80);
-  });
-}
-
-
-/* ═══════════════════════════════════════
-   SPARKLE BURST (on choice select)
-   ═══════════════════════════════════════ */
-function createSparkle(element) {
-  const rect = element.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-
+function createSparkle(el) {
+  const r = el.getBoundingClientRect();
+  const cx = r.left+r.width/2, cy = r.top+r.height/2;
   const burst = document.createElement('div');
   burst.className = 'sparkle-burst';
-  burst.style.left = cx + 'px';
-  burst.style.top  = cy + 'px';
-
-  const colors = ['#ff6b9d','#c471ed','#f7b731','#ff8fb3','#fff','#ffd700'];
-
-  for (let i = 0; i < 12; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    const angle = (Math.PI * 2 * i) / 12;
-    const dist  = Math.random() * 55 + 25;
-    s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
-    s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-    s.style.background = colors[Math.floor(Math.random() * colors.length)];
+  burst.style.left = cx+'px'; burst.style.top = cy+'px';
+  const colors = ['#ff5e94','#a855f7','#f59e0b','#2dd4bf','#fff'];
+  for (let i=0;i<12;i++) {
+    const s = document.createElement('div'); s.className = 'sparkle';
+    const a = (Math.PI*2*i)/12, d = Math.random()*55+25;
+    s.style.setProperty('--dx', Math.cos(a)*d+'px');
+    s.style.setProperty('--dy', Math.sin(a)*d+'px');
+    s.style.background = colors[Math.floor(Math.random()*colors.length)];
     burst.appendChild(s);
   }
-
   document.body.appendChild(burst);
-  setTimeout(() => burst.remove(), 850);
+  setTimeout(()=>burst.remove(),850);
 }
 
 
 /* ═══════════════════════════════════════
    KEYBOARD
    ═══════════════════════════════════════ */
-document.addEventListener('keydown', (e) => {
-  const quiz = document.getElementById('quiz');
-  if (!quiz.classList.contains('active')) return;
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('quiz').classList.contains('active')) return;
   if (e.key === 'ArrowRight' && !isTransitioning) nextQuestion();
-  if (e.key === 'ArrowLeft'  && !isTransitioning) prevQuestion();
+  if (e.key === 'ArrowLeft' && !isTransitioning) prevQuestion();
 });
 
 
 /* ═══════════════════════════════════════
    UTILITY
    ═══════════════════════════════════════ */
-function esc(str) {
-  if (!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-            .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-}
+function esc(s) { return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;') : ''; }
 
 
 /* ═══════════════════════════════════════
@@ -827,6 +785,5 @@ function esc(str) {
 document.addEventListener('DOMContentLoaded', () => {
   initStarfield();
   initParticles();
-  initCursorTrail();
   hideLoader();
 });

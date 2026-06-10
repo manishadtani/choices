@@ -1,252 +1,121 @@
 <!-- ═══════════════════════════════════════════════════════════
-     📧 EmailJS HTML TEMPLATE
+     📧 EmailJS HTML TEMPLATE — v3 (20 Questions)
      
-     HOW TO USE:
-     1. Go to https://emailjs.com → Sign up / Login
-     2. Go to "Email Services" → Add your Gmail/Outlook
-     3. Go to "Email Templates" → Create New Template
-     4. PASTE this entire HTML below into the template editor
-     5. Set "To Email" to YOUR email address
-     6. Set "From Name" to {{from_name}}
-     7. Set "Subject" to {{subject}}
-     8. Save the template
-     9. Copy your Service ID, Template ID, and Public Key
-     10. Paste them in script.js EMAIL_CONFIG
+     PASTE this into EmailJS Dashboard → Email Templates → Content
      ═══════════════════════════════════════════════════════════ -->
+<div style="max-width:600px;margin:0 auto;background:linear-gradient(135deg,#0d0d24,#131336);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);font-family:'Segoe UI',Arial,sans-serif;">
+  
+  <div style="background:linear-gradient(135deg,#ff5e94,#a855f7);padding:36px 24px;text-align:center;">
+    <h1 style="color:#fff;font-size:24px;margin:0 0 8px;font-weight:700;">💕 Quiz Answers Are In!</h1>
+    <p style="color:rgba(255,255,255,0.85);font-size:14px;margin:0;">She completed the "Hey You" quiz — 20 answers just for you</p>
+  </div>
+  
+  <div style="padding:32px 24px;">
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0a0a1f;
-      font-family: 'Segoe UI', Arial, sans-serif;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, #0d0d24 0%, #131336 100%);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .header {
-      background: linear-gradient(135deg, #ff6b9d, #c471ed);
-      padding: 36px 24px;
-      text-align: center;
-    }
-    .header h1 {
-      color: #ffffff;
-      font-size: 24px;
-      margin: 0 0 8px;
-      font-weight: 700;
-    }
-    .header p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
-      margin: 0;
-    }
-    .body-content {
-      padding: 32px 24px;
-    }
-    .question-block {
-      margin-bottom: 24px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      border-left: 3px solid #ff6b9d;
-    }
-    .question-label {
-      font-size: 13px;
-      color: #ff8fb3;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .question-text {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-    .answer-text {
-      font-size: 17px;
-      color: #ffffff;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-    .footer {
-      text-align: center;
-      padding: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .footer p {
-      color: rgba(255, 255, 255, 0.35);
-      font-size: 12px;
-      margin: 0;
-    }
-    .timestamp {
-      text-align: center;
-      padding: 16px 24px;
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 12px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    
-    <!-- Header -->
-    <div class="header">
-      <h1>💕 Quiz Answers Are In!</h1>
-      <p>She completed the "Hey You" quiz</p>
-    </div>
-    
-    <!-- Answers Body -->
-    <div class="body-content">
-
-      <!-- 🌸 Flower -->
-      <div class="question-block">
-        <div class="question-label">🌸 Favorite Flower</div>
-        <div class="question-text">So tell me — what's your favorite flower?</div>
-        <div class="answer-text">➜ {{flower}}</div>
-      </div>
-
-      <!-- 🍜 Dish -->
-      <div class="question-block">
-        <div class="question-label">🍜 Favorite Dish</div>
-        <div class="question-text">What's the dish you could eat every single day?</div>
-        <div class="answer-text">➜ {{dish}}</div>
-      </div>
-
-      <!-- 🎬 Movie -->
-      <div class="question-block">
-        <div class="question-label">🎬 Favorite Movie</div>
-        <div class="question-text">What movie can you watch a hundred times?</div>
-        <div class="answer-text">➜ {{movie}}</div>
-      </div>
-
-      <!-- 🎨 Color -->
-      <div class="question-block">
-        <div class="question-label">🎨 Favorite Color</div>
-        <div class="question-text">What's your favorite color?</div>
-        <div class="answer-text">➜ {{color}}</div>
-      </div>
-
-      <!-- 🎵 Song -->
-      <div class="question-block">
-        <div class="question-label">🎵 Her Song</div>
-        <div class="question-text">What's YOUR song?</div>
-        <div class="answer-text">➜ {{song}}</div>
-      </div>
-
-      <!-- ✈️ Place -->
-      <div class="question-block">
-        <div class="question-label">✈️ Dream Destination</div>
-        <div class="question-text">What's your dream travel destination?</div>
-        <div class="answer-text">➜ {{place}}</div>
-      </div>
-
-      <!-- 🌦️ Season -->
-      <div class="question-block">
-        <div class="question-label">🌦️ Favorite Season</div>
-        <div class="question-text">What's your favorite season?</div>
-        <div class="answer-text">➜ {{season}}</div>
-      </div>
-
-      <!-- 🍕 Comfort Food -->
-      <div class="question-block">
-        <div class="question-label">🍕 Comfort Food</div>
-        <div class="question-text">What's your ultimate comfort food?</div>
-        <div class="answer-text">➜ {{comfort_food}}</div>
-      </div>
-
-      <!-- 📖 Book -->
-      <div class="question-block">
-        <div class="question-label">📖 Favorite Book</div>
-        <div class="question-text">What's a book that changed the way you think?</div>
-        <div class="answer-text">➜ {{book}}</div>
-      </div>
-
-      <!-- 🎯 Hobby -->
-      <div class="question-block">
-        <div class="question-label">🎯 Favorite Hobby</div>
-        <div class="question-text">What's your favorite thing to do?</div>
-        <div class="answer-text">➜ {{hobby}}</div>
-      </div>
-
-      <!-- 🌙 Morning/Night -->
-      <div class="question-block">
-        <div class="question-label">🌙 Morning or Night</div>
-        <div class="question-text">Morning person or night owl?</div>
-        <div class="answer-text">➜ {{morning_night}}</div>
-      </div>
-
-      <!-- 😂 Makes Laugh -->
-      <div class="question-block">
-        <div class="question-label">😂 What Makes Her Laugh</div>
-        <div class="question-text">What ALWAYS makes you laugh?</div>
-        <div class="answer-text">➜ {{makes_laugh}}</div>
-      </div>
-
-      <!-- 💑 Dream Date -->
-      <div class="question-block">
-        <div class="question-label">💑 Perfect Date</div>
-        <div class="question-text">What's your idea of a perfect date?</div>
-        <div class="answer-text">➜ {{dream_date}}</div>
-      </div>
-
-      <!-- 💕 Love Language -->
-      <div class="question-block">
-        <div class="question-label">💕 Love Language</div>
-        <div class="question-text">What's your love language?</div>
-        <div class="answer-text">➜ {{love_language}}</div>
-      </div>
-
-      <!-- 📝 Teach Me -->
-      <div class="question-block">
-        <div class="question-label">📝 Teach Me Next</div>
-        <div class="question-text">What's something you want to teach me next?</div>
-        <div class="answer-text">➜ {{teach_me}}</div>
-      </div>
-
-      <!-- ⚡ Superpower -->
-      <div class="question-block">
-        <div class="question-label">⚡ Superpower</div>
-        <div class="question-text">If you could have any superpower?</div>
-        <div class="answer-text">➜ {{superpower}}</div>
-      </div>
-
-      <!-- 🚀 Together -->
-      <div class="question-block">
-        <div class="question-label">🚀 Do Together</div>
-        <div class="question-text">What's something you want us to do together?</div>
-        <div class="answer-text">➜ {{together}}</div>
-      </div>
-
-      <!-- 🥺 About Me -->
-      <div class="question-block">
-        <div class="question-label">🥺 Why Me</div>
-        <div class="question-text">What made you say yes to this boyfriend?</div>
-        <div class="answer-text">➜ {{about_me}}</div>
-      </div>
-
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🌸 Favorite Flower</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{flower}}</div>
     </div>
 
-    <!-- Timestamp -->
-    <div class="timestamp">
-      📅 Submitted: {{submitted_at}}
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🌍 Mountains or Beach</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{mountains_or_beach}}</div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <p>💕 Sent from "Hey You" Quiz Game</p>
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🍜 Favorite Dish</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{dish}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🎨 Favorite Color</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{color}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #2dd4bf;">
+      <div style="font-size:13px;color:#2dd4bf;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🌧️ Love for Rainy Days</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{love_rain}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🎬 Favorite Movie</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{movie}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🌙 Morning or Night</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{morning_or_night}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🎵 Her Anthem</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{song}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #2dd4bf;">
+      <div style="font-size:13px;color:#2dd4bf;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🎭 Introvert / Extrovert</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{introvert_extrovert}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🍕 Comfort Food</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{comfort_food}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🌦️ Favorite Season</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{season}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">📖 Life-Changing Book</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{book}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #2dd4bf;">
+      <div style="font-size:13px;color:#2dd4bf;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🍳 Cook or Order</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{cook_or_order}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">💑 Dream Date</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{dream_date}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">💕 Love Language</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{love_language}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #f59e0b;">
+      <div style="font-size:13px;color:#f59e0b;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">📱 My Texting Game Rating</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{rate_my_texts}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #ff5e94;">
+      <div style="font-size:13px;color:#ff85b0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">✈️ Dream Destination</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{place}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #a855f7;">
+      <div style="font-size:13px;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">⚡ Superpower</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{superpower}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #2dd4bf;">
+      <div style="font-size:13px;color:#2dd4bf;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">📞 Calls or Texts</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{calls_or_texts}}</div>
+    </div>
+
+    <div style="margin-bottom:22px;padding:18px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #f59e0b;">
+      <div style="font-size:13px;color:#f59e0b;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:600;">🥺 Why She Said Yes</div>
+      <div style="font-size:16px;color:#fff;font-weight:600;">➜ {{about_me}}</div>
     </div>
 
   </div>
-</body>
-</html>
+
+  <div style="text-align:center;padding:20px;border-top:1px solid rgba(255,255,255,0.05);">
+    <p style="color:rgba(255,255,255,0.3);font-size:12px;margin:0;">📅 {{submitted_at}} · 💕 Sent from "Hey You" Quiz</p>
+  </div>
+
+</div>
