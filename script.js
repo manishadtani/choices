@@ -546,25 +546,50 @@ function showReaction() {
 function submitAnswers() {
   saveCurrentAnswer();
 
-  const emailBody = buildEmailBody();
+  // ─── Build template params (each answer = separate variable) ───
+  const templateParams = {
+    subject:      '💕 Quiz Answers from Your Girl!',
+    from_name:    'Hey You Quiz 💕',
+    submitted_at: new Date().toLocaleString(),
+    // Individual answers matching {{variable}} in EmailJS template
+    flower:       answers.flower       || '(skipped)',
+    dish:         answers.dish         || '(skipped)',
+    movie:        answers.movie        || '(skipped)',
+    color:        answers.color        || '(skipped)',
+    song:         answers.song         || '(skipped)',
+    place:        answers.place        || '(skipped)',
+    season:       answers.season       || '(skipped)',
+    comfort_food: answers.comfort_food || '(skipped)',
+    book:         answers.book         || '(skipped)',
+    hobby:        answers.hobby        || '(skipped)',
+    morning_night:answers.morning_night|| '(skipped)',
+    makes_laugh:  answers.makes_laugh  || '(skipped)',
+    dream_date:   answers.dream_date   || '(skipped)',
+    love_language: answers.love_language|| '(skipped)',
+    teach_me:     answers.teach_me     || '(skipped)',
+    superpower:   answers.superpower   || '(skipped)',
+    together:     answers.together     || '(skipped)',
+    about_me:     answers.about_me     || '(skipped)',
+    // Also send the plain text version as backup
+    message:      buildEmailBody(),
+  };
 
-  // ─── EmailJS ───
-  // 1. Add to <head>:  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  // 2. Fill EMAIL_CONFIG at the top
-  // 3. Uncomment:
-  //
-  // emailjs.init(EMAIL_CONFIG.publicKey);
-  // emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, {
-  //   message: emailBody,
-  //   subject: '💕 Quiz Answers from Your Girl!',
-  // })
-  // .then(() => console.log('Email sent successfully!'))
-  // .catch(err => console.error('Email failed:', err));
-
-  console.log('═══ QUIZ ANSWERS ═══');
-  console.log(JSON.stringify(answers, null, 2));
-  console.log('═══ EMAIL BODY ═══');
-  console.log(emailBody);
+  // ─── SEND VIA EMAILJS ───
+  // Fill EMAIL_CONFIG at the top of this file, then this works automatically!
+  if (EMAIL_CONFIG.serviceId !== 'YOUR_SERVICE_ID') {
+    emailjs.init(EMAIL_CONFIG.publicKey);
+    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, templateParams)
+      .then(() => {
+        console.log('✅ Email sent successfully!');
+      })
+      .catch(err => {
+        console.error('❌ Email failed:', err);
+      });
+  } else {
+    console.log('⚠️ EmailJS not configured. Fill EMAIL_CONFIG in script.js');
+    console.log('═══ TEMPLATE PARAMS (this is what EmailJS would send) ═══');
+    console.log(JSON.stringify(templateParams, null, 2));
+  }
 
   showOutro();
 }
